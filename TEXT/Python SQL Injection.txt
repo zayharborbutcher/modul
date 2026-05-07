@@ -1,0 +1,33 @@
+from flask import Flask, request, jsonify
+import mysql.connector
+
+app = Flask(__name__)
+
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="lab_sqli_flask"
+)
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.json.get("username")
+    password = request.json.get("password")
+
+    cursor = db.cursor()
+
+    query = "SELECT * FROM users WHERE username=%s AND password=%s"
+    cursor.execute(query,(username, password))
+
+    result = cursor.fetchall()
+
+    if len(result) > 0:
+        return jsonify({"message": "Login Berhasil"})
+    else:
+        return jsonify({"message": "Login Gagal"})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+

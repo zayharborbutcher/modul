@@ -1,0 +1,27 @@
+# Buat group
+addgroup sekolah
+
+# Buat user
+adduser siswa1
+adduser siswa2
+
+# Masukkan ke group
+usermod -aG sekolah siswa1
+usermod -aG sekolah siswa2
+
+# Setup home directory siswa1
+mkdir -p /home/siswa1
+chown root:root /home/siswa1
+chmod 755 /home/siswa1
+
+mkdir /home/siswa1/data
+chown siswa1:sekolah /home/siswa1/data
+
+# Setup home directory siswa2
+mkdir -p /home/siswa2
+chown root:root /home/siswa2
+chmod 755 /home/siswa2
+
+mkdir /home/siswa2/data
+chown siswa2:sekolah /home/siswa2/data
+

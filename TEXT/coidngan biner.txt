@@ -1,0 +1,16 @@
+n = 27
+
+while n > 0:
+    print(n % 2)  # sisa
+    n = n // 2    # bagi 2
+
+
+biner = "1100110"
+desimal = int(biner, 2)
+print(desimal)
+
+
+2 → biner
+10 → desimal
+16 → hex
+8 → oktal
