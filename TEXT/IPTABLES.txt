@@ -1,0 +1,13 @@
+apt install iptables-persistent
+iptables -t nat -A POSTROUTING -o ens33 -j MASQUERADE
+iptables -A FORWARD -i ens34 -o ens33 -j ACCEPT
+iptables -A FORDWARD -i ens33 -o ens34 -m state --state ESTABLISHED, -j ACCEPT
+ 
+MEMBATASI AKSES SERVER
+iptables -I FORWARD -s 10.1.1.20 -o ens33 -j DROP
+
+MEMBLOKIR PORT 22
+iptables -A FORWARD -s 10.1.1.40 -d 10.1.1.20 -p tcp --dport 22 -j DROP
+
+IZINKAN WEB PORT 80 
+iptables -A FORWARD -d 10.1.1.20 -p tcp --dport 80 -j ACCEPT
