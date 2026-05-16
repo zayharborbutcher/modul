@@ -1,0 +1,49 @@
+1. Cek apakah plaintext sederhana
+  import hashlib
+
+  word = "password"
+  h = hashlib.sha256(word.encode()).hexdigest()
+
+  print(h)
+
+2. Dictionary Attack
+
+  import hashlib
+
+  target = "5e884898da28047151d0e56f8dc629..."
+
+  words = ["admin", "password", "123456", "qwerty"]
+
+  for w in words:
+      h = hashlib.sha256(w.encode()).hexdigest()
+
+      if h == target:
+          print("Found:", w)
+          break
+3. Brute Force
+  import hashlib
+  import itertools
+  import string
+
+  target = "..."
+
+  chars = string.ascii_lowercase
+
+  for length in range(1, 6):
+      for combo in itertools.product(chars, repeat=length):
+          word = ''.join(combo)
+
+          h = hashlib.sha256(word.encode()).hexdigest()
+
+          if h == target:
+              print("FOUND:", word)
+              exit()
+
+
+kata umum hacking:
+root
+admin
+hack
+pwn
+shell
+exploit

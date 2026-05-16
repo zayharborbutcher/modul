@@ -1,0 +1,6 @@
+import base64
+
+cipher = "UGljb0NURntjcnlwdG99"
+decoded = base64.b64decode(cipher)
+
+print(decoded.decode())

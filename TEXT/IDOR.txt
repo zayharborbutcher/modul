@@ -1,0 +1,83 @@
+from flask import Flask, request, session, redirect
+
+app = Flask(__name__)
+app.secret_key = "secret123"
+
+# Database palsu
+users = {
+    "1": {
+        "username": "admin",
+        "email": "admin@ctf.local",
+        "secret": "FLAG{ADMIN_SECRET}"
+    },
+    "2": {
+        "username": "asep",
+        "email": "asep@ctf.local",
+        "secret": "User biasa"
+    },
+    "3": {
+        "username": "budi",
+        "email": "budi@ctf.local",
+        "secret": "Data budi"
+    }
+}
+
+# Halaman utama
+@app.route("/")
+def home():
+    return """
+    <h2>WEB IDOR LAB</h2>
+
+    <a href='/login/2'>Login sebagai asep</a><br>
+    <a href='/login/3'>Login sebagai budi</a><br><br>
+
+    Setelah login buka:
+    <br>
+    /profile?id=2
+    """
+
+# Login sederhana
+@app.route("/login/<uid>")
+def login(uid):
+    session["user_id"] = uid
+    return redirect("/me")
+
+# Lihat akun sendiri
+@app.route("/me")
+def me():
+    if "user_id" not in session:
+        return "Belum login"
+
+    uid = session["user_id"]
+    user = users[uid]
+
+    return f"""
+    <h2>Login berhasil</h2>
+
+    Username: {user['username']}<br>
+    Email: {user['email']}<br><br>
+
+    Coba akses:
+    <br>
+    /profile?id={uid}
+    """
+
+# VULNERABLE IDOR
+@app.route("/profile")
+def profile():
+    uid = request.args.get("id")
+
+    if uid not in users:
+        return "User tidak ditemukan"
+
+    user = users[uid]
+
+    return f"""
+    <h2>Profile User</h2>
+
+    Username: {user['username']}<br>
+    Email: {user['email']}<br>
+    Secret: {user['secret']}
+    """
+
+app.run(debug=True)

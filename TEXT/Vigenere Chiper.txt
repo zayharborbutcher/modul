@@ -1,0 +1,29 @@
+def vigenere_decrypt(chipertext, key):
+    result = ""
+    key = key.lower()
+    key_index = 0
+
+    for char in chipertext:
+        if char.isalpha():
+            c = ord(char) - ord('a')
+            k = ord(key[key_index % len(key)]) - ord('a')
+            p = (c - k) % 26
+            result += chr(p + ord('a'))
+            key_index += 1
+        else:
+            result += char
+    return result
+
+cipher = "ppek{zlwgrlm_lqlj}"
+key = "cyber"
+key2 = "igda"
+
+step1 = vigenere_decrypt(cipher,key)
+step2 = vigenere_decrypt(step1,key2)
+
+print("Step 1: ", step1)
+print("Step 2: ", step2)
+
+
+=CHAR(ROW(A1)+64) = ALFABET
+=ROW(A1)-1

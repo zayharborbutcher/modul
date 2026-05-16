@@ -1,0 +1,7 @@
+apt update
+apt install nmap
+apt install python3-pip
+apt install pyhton3-nmap
+apt install wget curl git
+apt install postgresql postgresql-contrib
+apt install python3-venv

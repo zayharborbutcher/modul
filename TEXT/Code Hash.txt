@@ -1,0 +1,30 @@
+pemecahan hash MD5
+import hashlib
+
+words = ["admin", "123456", "password", "qwerty"]
+
+target = "5f4dcc3b5aa765d61d8327deb882cf99"
+
+for w in words:
+    h = hashlib.md5(w.encode()).hexdigest() > jika sha ganti jadi sha1
+
+    print(w, "=>", h)
+
+    if h == target:
+        print("FOUND:", w)
+
+
+Brute Force
+import hashlib
+
+target = "8d969eef6ecad3c29a3a629280e686cff8fabd..."
+
+for i in range(1000000):
+
+    text = str(i).zfill(6)
+
+    h = hashlib.sha256(text.encode()).hexdigest()
+
+    if h.startswith(target[:20]):
+        print("FOUND:", text)
+        break
