@@ -1,9 +1,0 @@
-apt install -y curl wget git postgresql postgresql-contrib \
-ruby ruby-dev build-essential libpq-dev
-
-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb -o msfinstall
-chmod +x msfinstall
-sudo ./msfinstall
-
-msfconsole
-
